@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Undangan Pernikahan Yusuf & Anjeli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* 0. Variabel Warna */
+        :root {
+            --color-primary: #9b596d; /* Dusty Rose Tua */
+            --color-secondary: #cfb53b; /* Emas Klasik */
+            --color-background: #fcf8f9; /* Hampir Putih, Sedikit Rose */
+            --color-text-dark: #333333;
+            --color-text-light: #555555;
+        }
+
+        /* 1. Global & Background */
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--color-background);
+            background-image: linear-gradient(135deg, #fcefee 0%, #f7e0e7 50%, #fcefee 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px 0;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
+            overflow-x: hidden;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        /* 2. Loading Screen */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid #f0e6e6; 
+            border-top-color: var(--color-primary); 
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* 3. Container Utama Undangan */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex-direction: column;
+        }
+        
+        .card-section {
+            width: 90%;
+            max-width: 450px; 
+            padding: 40px 30px;
+            text-align: center;
+            background: #ffffff; 
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(155, 89, 109, 0.2);
+            margin: 20px 0;
+            position: relative;
+            border: 1px solid rgba(207, 181, 59, 0.2); 
+        }
+
+        /* 4. Elemen Sapaan & Nama */
+        .kepada {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            color: var(--color-text-light);
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+
+        .tamu {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .pre-text {
+            font-size: 14px;
+            color: var(--color-text-light);
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .ayat-pembuka {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            margin: 20px 0 30px;
+            font-style: italic;
+            color: var(--color-text-light);
+        }
+
+        .judul {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        .foto {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 7px double var(--color-secondary); 
+            margin: 25px auto 10px;
+            box-shadow: 0 0 20px rgba(207, 181, 59, 0.5); 
+        }
+
+        .nama {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 50px; 
+            font-weight: 700;
+            margin-top: 15px;
+            color: var(--color-text-dark);
+        }
+        
+        .ampersand {
+            font-size: 45px;
+            color: var(--color-secondary);
+            margin: 10px 0;
+            display: block;
+            font-style: italic;
+        }
+
+        .tanggal {
+            margin-top: 25px;
+            font-size: 20px;
+            color: var(--color-primary);
+            font-weight: 600;
+            padding: 15px 0;
+            border-top: 2px dashed #f0f0f0; 
+        }
+
+        /* Detail Orang Tua */
+        .ortu-section {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 30px;
+            padding: 15px 0;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .ortu-section > div {
+            width: 45%;
+        }
+
+        .ortu-section b {
+            display: block;
+            font-size: 16px;
+            color: var(--color-primary);
+            margin-bottom: 5px;
+        }
+
+        .ortu-section p {
+            font-size: 13px;
+            color: var(--color-text-light);
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        /* 5. Tombol Aksi - Utama */
+        .wa-button, #openBtn {
+            display: inline-block;
+            padding: 14px 25px;
+            border-radius: 50px; 
+            font-size: 16px;
+            margin: 10px 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .wa-button {
+            background: #25d366;
+            color: white;
+            border: 2px solid #25d366;
+        }
+
+        #openBtn {
+            background: var(--color-primary); 
+            color: white;
+            border: 2px solid var(--color-primary);
+        }
+        
+        .wa-button:hover {
+            background: #128c7e;
+            border-color: #128c7e;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        #openBtn:hover {
+            background: #b87a8b; 
+            border-color: #b87a8b;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 15px rgba(155, 89, 109, 0.4);
+        }
+
+        /* 6. Detail Undangan */
+        #detail-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        
+        #detail {
+            margin-top: 35px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--color-text-light);
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            text-align: left;
+            width: 90%;
+            max-width: 450px;
+            /* Transisi untuk muncul dari bawah */
+            transform: translateY(50px); 
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        #detail.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .detail-box {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--color-secondary); 
+            background: #fffafa;
+            border-radius: 8px;
+        }
+        
+        .detail-box b {
+            color: var(--color-primary);
+            font-weight: 700;
+            display: block;
+            margin-bottom: 3px;
+            font-size: 18px;
+        }
+        
+        .detail-box span {
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Tombol Aksi Detail (Maps & Calendar) */
+        .detail-actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .detail-actions a {
+            flex-grow: 1;
+            padding: 12px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .map-btn {
+            background: #4285F4; /* Google Blue */
+            color: white;
+        }
+
+        .calendar-btn {
+            background: #34A853; /* Google Green */
+            color: white;
+        }
+
+        .map-btn:hover, .calendar-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+
+        /* 7. Footer dan Musik */
+        .footer-section {
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            margin: 30px 0 50px;
+            color: var(--color-text-light);
+        }
+
+        #music-control {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        #music-control button {
+            background: var(--color-secondary); 
+            color: var(--color-text-dark);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 10px rgba(207, 181, 59, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        #music-control button:hover {
+            background: #e0c85f;
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(207, 181, 59, 0.6);
+        }
+        
+    </style>
+</head>
+<body>
+
+    <div id="loading">
+        <div class="spinner"></div>
+        <p style="margin-top: 15px; font-size: 18px; color:var(--color-text-dark);">Mohon tunggu...</p>
+    </div>
+
+    <div class="main-content">
+        <div class="card-section">
+            <div class="kepada">Kepada Yth.</div>
+            <div class="tamu">Bapak/Ibu/Saudara/i</div>
+
+            <p class="ayat-pembuka">
+                "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang."<br>
+                — QS. Ar-Rum: 21
+            </p>
+
+            <div class="pre-text">Kami Mengundang Anda dalam Acara</div>
+            <div class="judul">The Wedding of</div>
+            
+            <img src="Aku.jpg" class="foto" alt="Foto Mempelai" />
+
+            <div class="nama">Yusuf <span class="ampersand">&</span> Anjeli</div>
+            
+            <div class="ortu-section">
+                <div>
+                    <b>Yusuf</b>
+                    <p>Putra dari Bapak H. Abdul Gani<br> & Ibu Hj. Siti Zulaiha</p>
+                </div>
+                <div>
+                    <b>Anjeli</b>
+                    <p>Putri dari Bapak Rahmat Hidayat<br> & Ibu Diana Puspitasari</p>
+                </div>
+            </div>
+
+            <div class="tanggal">Minggu,20 Januari 2030</div>
+
+            <a class="wa-button" href="https://wa.me/?text=Assalamualaikum%20kami%20mengundang%20Anda%20ke%20acara%20pernikahan%20Yusuf%20%26%20Anjeli.%20Silakan%20buka%20undangan:%20LINK_UNDANGAN" target="_blank">📲 Kirim via WhatsApp</a>
+            <button id="openBtn">Lihat Detail Undangan</button>
+        </div>
+        
+        <div id="detail-section">
+            <div id="detail" class="inactive">
+                <h3 style="text-align: center; color: var(--color-primary); font-family: 'Playfair Display', serif; margin-bottom: 25px;">Detail Acara Bahagia</h3>
+                
+                <div class="detail-box">
+                    <b>🕌 Akad Nikah</b>
+                    <span>**Hari/Tanggal:** Minggu, 20 Januari 2025</span>
+                    <span>**Pukul:** 09.00 WIB - Selesai</span>
+                    <span>**Lokasi:** Gedung pertemuan Taman Perwacy, Bandung</span>
+                </div>
+                
+                <div class="detail-box">
+                    <b>🥂 Resepsi Pernikahan</b>
+                    <span>**Hari/Tanggal:** Minggu, 20 Januari 2025</span>
+                    <span>**Pukul:** 11.00 – 15.00 WIB</span>
+                    <span>**Lokasi:** Gedung pertemuan Taman Perwacy, Bandung</span>
+                </div>
+
+                <div class="detail-actions">
+                    <a class="map-btn" href="https://share.google/FAtyXLsc30PN8egjZ" target="_blank">
+                        Buka Lokasi (Maps)
+                    </a>
+                    <a class="calendar-btn" href="https://www.google.com/calendar/render?action=TEMPLATE&text=Pernikahan+Yusuf+%26+Anjeli&dates=20250120T090000/20250120T150000&details=Akad+dan+Resepsi+pernikahan+Yusuf+dan+Anjeli.&location=Gedung+pertemuan+Taman+Perwacy" target="_blank">
+                        Simpan Tanggal (Calendar)
+                    </a>
+                </div>
+                
+                <p style="text-align: center; margin-top: 30px; font-style: italic; font-size: 14px;">
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.<br>
+                    Atas kehadiran dan doa restunya, kami ucapkan terima kasih.
+                </p>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <p>Wassalamualaikum Warahmatullahi Wabarakatuh</p>
+            <div id="music-control">
+                <button id="musicBtn">🔇 Putar Musik</button>
+            </div>
+        </div>
+
+        <audio id="bgMusic" loop>
+            <source src="videoplayback.weba" type="audio/mpeg" />
+        </audio>
+    </div>
+
+    <script>
+        // 1. Hilangkan loading screen ketika halaman siap
+        window.onload = function () {
+            document.getElementById("loading").style.display = "none";
+        };
+
+        // 2. FUNGSI UNTUK TOMBOL DETAIL DAN MUSIK
+        document.addEventListener('DOMContentLoaded', function() {
+            const openBtn = document.getElementById('openBtn');
+            const detailDiv = document.getElementById('detail');
+            const audio = document.getElementById('bgMusic');
+            const musicBtn = document.getElementById('musicBtn');
+            const detailSection = document.getElementById('detail-section'); 
+            
+            let isMusicPlaying = false; 
+
+            // --- FUNGSI PENGONTROL MUSIK TUNGGAL YANG DIPERBAIKI ---
+            function toggleMusic() {
+                if (isMusicPlaying) {
+                    // Saat ini bermain -> Pause
+                    audio.pause();
+                    isMusicPlaying = false;
+                    musicBtn.innerHTML = '🔇 Putar Musik';
+                } else {
+                    // Saat ini tidak bermain/paused -> Play
+                    // Menggunakan .play().then().catch() untuk menangani kebijakan Autoplay browser
+                    audio.play().then(() => {
+                        isMusicPlaying = true;
+                        musicBtn.innerHTML = '🔊 Jeda Musik';
+                    }).catch(error => {
+                        console.error("Gagal memutar musik:", error);
+                        // Tampilkan pesan error jika pemutaran gagal (misalnya diblokir)
+                        musicBtn.innerHTML = 'Musik diblokir oleh browser'; 
+                    });
+                }
+            }
+
+            // --- LOGIKA TOMBOL DETAIL (MUNCULKAN, SCROLL, DAN MUSIK) ---
+            // Hanya satu listener untuk openBtn yang menangani semua aksi saat interaksi pertama
+            openBtn.addEventListener('click', function handleOpenClick() {
+                const isActive = detailDiv.classList.contains('active');
+
+                if (!isActive) {
+                    // A. Munculkan detail
+                    detailDiv.classList.add('active');
+                    openBtn.textContent = 'Sembunyikan Detail Undangan'; 
+                    
+                    // B. Coba putar musik (Interaksi pertama)
+                    // Fungsi ini sekarang hanya dipanggil di sini untuk interaksi pertama
+                    if (!isMusicPlaying) { 
+                        toggleMusic();
+                    }
+
+                    // C. Lakukan scroll ke bagian detail setelah muncul (sedikit delay untuk transisi)
+                    setTimeout(() => {
+                        detailSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 50);
+
+                } else {
+                    // Sembunyikan detail
+                    detailDiv.classList.remove('active');
+                    openBtn.textContent = 'Lihat Detail Undangan'; 
+                }
+            });
+            
+            // --- LOGIKA KONTROL MUSIK MANUAL ---
+            // musicBtn sekarang hanya memanggil fungsi toggleMusic
+            musicBtn.addEventListener('click', toggleMusic);
+            
+            // Catatan: Semua event listener tryPlayMusic yang bentrok sudah dihapus.
+        });
+    </script>
+
+</body>
+</html>
